@@ -1,0 +1,4 @@
+{"id": "1", "title": "Hello World", "author": "Alice", "message": "My first message"}
+{"id": "2", "title": "Duck Typing", "author": "Bob", "message": "If it quacks like a duck"}
+{"id": "3", "title": "Protocols", "author": "Carol", "message": "Python Protocols are powerful"}
+{"id": "4", "title": "CLI Tools", "author": "Dave", "message": "Typer makes CLI apps easy"}
