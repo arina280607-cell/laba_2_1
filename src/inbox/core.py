@@ -5,6 +5,7 @@ from src.contracts.task_source import TaskSource
 
 
 class InboxApp:
+    """приложение для сбора задач из источников"""
     def __init__(self, sources: Sequence[TaskSource] = None):
         self._sources = sources or []
 

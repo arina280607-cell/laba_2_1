@@ -1,2 +1,2 @@
-from .stdin import create_source
+from .stdin import create_stdin_source
 from .json import create_json_source

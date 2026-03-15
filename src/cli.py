@@ -14,7 +14,7 @@ cli = Typer(no_args_is_help=True)
 def plugins_list() -> None:
     typer.echo("Available plugins:")
     for name in sorted(REGISTRY):
-        typer.echo(name)
+        typer.echo(f" {name}")
 
 
 def _build_sources(stdin: bool, jsonl: list[Path]) -> list[Any]:
