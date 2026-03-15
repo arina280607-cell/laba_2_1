@@ -1,9 +1,9 @@
 from functools import wraps
 from typing import Callable, Type
 
-from contracts.message_source import MessageSource
+from src.contracts.task_source import TaskSource
 
-SourceFactory = Callable[..., MessageSource]
+SourceFactory = Callable[..., TaskSource]
 
 REGISTRY: dict[str, SourceFactory] = {}
 

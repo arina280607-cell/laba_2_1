@@ -30,7 +30,7 @@ def _build_sources(stdin: bool, jsonl: list[Path]) -> list[Any]:
 def read(
     stdin: bool = typer.Option(False, "--stdin", help="Read messages from stdin"),
     jsonl: list[Path] = typer.Option(
-        help="Read messages from stdin",
+        help="Read task from JSONL file",
         default_factory=list,
         exists=True,
         dir_okay=False,
@@ -41,10 +41,10 @@ def read(
     raw_sources = _build_sources(stdin, jsonl)
     inbox = InboxApp(raw_sources)
     numbers = 0
-    for msg in inbox.iter_messages():
-        if contains and contains not in msg.message:
+    for task in inbox.iter_messages():
+        if contains and contains not in str(task.payload):
             continue
         numbers += 1
-        typer.echo(f"[{msg.author}: {msg.id}] {msg.title}: {msg.message}")
+        typer.echo(f"[{task.id}] payload: {task.payload}")
 
-    typer.echo(f"\nTotal: {numbers}")
+    typer.echo(f"\nTotal tasks: {numbers}")

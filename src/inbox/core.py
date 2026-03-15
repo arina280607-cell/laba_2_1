@@ -1,16 +1,16 @@
 from collections.abc import Sequence, Iterable
 
-from src.contracts.tasks import Message
-from src.contracts.task_source import MessageSource
+from src.contracts.tasks import Task
+from src.contracts.task_source import TaskSource
 
 
 class InboxApp:
-    def __init__(self, sources: Sequence[MessageSource] = None):
+    def __init__(self, sources: Sequence[TaskSource] = None):
         self._sources = sources or []
 
-    def iter_messages(self) -> Iterable[Message]:
+    def iter_messages(self) -> Iterable[Task]:
         for src in self._sources:
-            if not isinstance(src, MessageSource):
-                raise TypeError("Source object must be MessageSource")
-            for message in src.fetch():
-                yield message
+            if not isinstance(src, TaskSource):
+                raise TypeError("Source object must be TaskSource")
+            for task in src.fetch():
+                yield task
