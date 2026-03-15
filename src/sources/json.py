@@ -1,11 +1,10 @@
 import json
-import uuid
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from src.contracts.tasks import Message
+from src.contracts.tasks import Task
 from src.sources.repository import register_source
 
 
@@ -21,19 +20,17 @@ class JsonlSource:
     path: Path
     name: str = "file-jsonl"
 
-    def fetch(self) -> Iterable[Message]:
+    def fetch(self) -> Iterable[Task]:
         with self.path.open("r", encoding="utf-8") as file:
             for line_no, line in enumerate(file, start=1):
                 line = line.strip()
                 if not line:
                     continue
-                message = parse_json_file(line, str(self.path), line_no)
-                message_id = str(message.get("id", f"{self.path.name}:{line_no}"))
-                message_title = message.get("title", "")
-                message_author = message.get("author", "")
-                message_content = message.get("content", "")
-                yield Message(
-                    id=message_id, title=message_title, author=message_author, message=message_content
+                task = parse_json_file(line, str(self.path), line_no)
+                task_id = str(task.get("id", f"{self.path.name}:{line_no}"))
+                payload = {k: v for k, v in task.items() if k!=id}#кладем данные кроме айди
+                yield Task(
+                    id=task_id, payload=task
                 )
 
 
